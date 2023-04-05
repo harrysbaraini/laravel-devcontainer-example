@@ -1,0 +1,42 @@
+version: '3'
+services:
+    app:
+        image: 'mcr.microsoft.com/devcontainers/base:jammy'
+        command: 'sleep infinity'
+        extra_hosts:
+            - 'host.docker.internal:host-gateway'
+            - 'example.localhost:127.0.0.1'
+        ports:
+            - '80'
+        networks:
+            - proxy
+            - default
+        depends_on:
+            - database
+        labels:
+            - traefik.enable=true
+            - traefik.docker.network=proxy
+            - traefik.http.routers.app.entrypoints=websecure
+            - traefik.http.routers.app.rule=Host(`example.localhost`)
+            - traefik.http.routers.app.service=app
+            - traefik.http.services.app.loadbalancer.server.port=80
+    database:
+        image: 'mariadb:10'
+        environment:
+            MYSQL_ROOT_PASSWORD: 'password'
+            MYSQL_ROOT_HOST: "%"
+            MYSQL_DATABASE: 'example'
+            MYSQL_USER: 'example'
+            MYSQL_PASSWORD: 'password'
+            MYSQL_ALLOW_EMPTY_PASSWORD: 'yes'
+        volumes:
+            - 'database:/var/lib/mysql'
+        healthcheck:
+            test: ["CMD", "mysqladmin", "ping", "-ppassword"]
+            retries: 3
+            timeout: 5s
+networks:
+    proxy:
+        external: true
+volumes:
+    database:
