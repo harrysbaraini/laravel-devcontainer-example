@@ -27,7 +27,7 @@
 		},
         "ghcr.io/harrysbaraini/devcontainers-features/php-cli": {
             "version": "8.2",
-            "packages": "imagick,gd"
+            "packages": "php8.2-imagick php8.2-gd"
         },
         "ghcr.io/harrysbaraini/devcontainers-features/nginx-unit-php": {
             "app_root": "${containerWorkspaceFolder}/public",
