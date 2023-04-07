@@ -21,18 +21,20 @@
 
     // Features to add to the dev container. More info: https://containers.dev/features.
 	"features": {
+		"ghcr.io/devcontainers/features/git:1": {},
 		"ghcr.io/devcontainers/features/node:1": {
 			"nodeGypDependencies": true,
 			"version": "lts"
 		},
-        "ghcr.io/harrysbaraini/devcontainers-features/php-cli": {
-            "version": "8.2",
-            "packages": "php8.2-imagick php8.2-gd"
-        },
-        "ghcr.io/harrysbaraini/devcontainers-features/nginx-unit-php": {
-            "app_root": "${containerWorkspaceFolder}/public",
-            "port": "80"
-        }
+		"ghcr.io/harrysbaraini/devcontainers-features/just": {},
+		"ghcr.io/harrysbaraini/devcontainers-features/php-cli": {
+		    "version": "8.2",
+		    "packages": "php8.2-imagick php8.2-gd"
+		},
+		"ghcr.io/harrysbaraini/devcontainers-features/nginx-unit-php": {
+		    "app_root": "${containerWorkspaceFolder}/public",
+		    "port": "80"
+		}
 	},
 
 	// After creating the container, we update the ownership of the mounted volume.
@@ -49,7 +51,8 @@
                 "DEVSENSE.composer-php-vscode",
                 "DEVSENSE.phptools-vscode",
                 "DEVSENSE.profiler-php-vscode",
-                "mikestead.dotenv"
+                "mikestead.dotenv",
+	    	"vue.volar"
             ]
         }
     }
